@@ -41,7 +41,7 @@ local config = {
 
     -- window_background_image = "/path/to/wallpaper.jpg",
     
-    color_scheme = "Ollie", -- Batman, OneHalfDark
+    color_scheme = "Catppuccin Mocha", -- or Macchiato, Frappe, Latte, "Ollie", -- Batman, OneHalfDark
     default_prog = pwsh,
     -- font = wezterm.font("HackGen35Nerd Console"), -- HackGen35Nerd Console, Firge35Nerd Console
     -- font = wezterm.font("FirgeNerd Console"), -- HackGen35Nerd Console, Firge35Nerd Console
