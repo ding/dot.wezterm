@@ -2,10 +2,39 @@
 -- 
 local wezterm = require("wezterm")
 
--- local gitbash = {"C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l"}
-local pwsh = {"D:\\scoop\\apps\\pwsh\\current\\pwsh.exe"}
-local pwshbeta = {"D:\\scoop\\apps\\pwsh-beta\\current\\pwsh.exe"}
-local gitbash = {"D:\\scoop\\apps\\git\\current\\bin\\bash.exe", "-i", "-l"}
+-- x86_64-pc-windows-msvc - Windows
+-- x86_64-apple-darwin - macOS (Intel)
+-- aarch64-apple-darwin - macOS (Apple Silicon)
+-- x86_64-unknown-linux-gnu - Linux
+
+-- if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+if string.match(wezterm.target_triple, ".*pc-windows-msvc$") then
+  -- Configs for Windows only
+  -- font_dirs = {
+  --     'C:\\Users\\whoami\\.dotfiles\\.fonts'
+  -- }
+  -- local gitbash = {"C:\\Program Files\\Git\\bin\\bash.exe", "-i", "-l"}
+  local pwsh = {"D:\\scoop\\apps\\pwsh\\current\\pwsh.exe"}
+  local pwshbeta = {"D:\\scoop\\apps\\pwsh-beta\\current\\pwsh.exe"}
+  local gitbash = {"D:\\scoop\\apps\\git\\current\\bin\\bash.exe", "-i", "-l"}
+  -- default_prog = {'wsl.exe', '~', '-d', 'Ubuntu-20.04'}
+  default_font = "Firge35Nerd Console" -- HackGen35Nerd Console, Firge35Nerd Console
+
+elseif string.match(wezterm.target_triple, ".*apple-darwin$") then
+  -- if wezterm.target_triple == 'x86_64-apple-darwin' then
+  -- Configs for OSX only
+  -- font_dirs    = { '$HOME/.dotfiles/.fonts' }
+  default_font = "Monaco"
+
+elseif string.match(wezterm.target_triple, ".*linux-gnu$") then
+  -- if wezterm.target_triple == 'x86_65-unknown-linux-gnu' then
+  -- Configs for Linux only
+  -- font_dirs    = { '$HOME/.dotfiles/.fonts' }
+  default_font = "Monaco"
+
+else
+  default_font = "Monaco"
+end
 
 -- Title
 function basename( s )
@@ -43,9 +72,7 @@ local config = {
     
     color_scheme = "Catppuccin Mocha", -- or Macchiato, Frappe, Latte, "Ollie", -- Batman, OneHalfDark
     default_prog = pwsh,
-    -- font = wezterm.font("HackGen35Nerd Console"), -- HackGen35Nerd Console, Firge35Nerd Console
-    -- font = wezterm.font("FirgeNerd Console"), -- HackGen35Nerd Console, Firge35Nerd Console
-    font = wezterm.font("Firge35Nerd Console"), -- HackGen35Nerd Console, Firge35Nerd Console
+    font = wezterm.font(default_font),
     font_size = 12.0,
     use_ime = true, -- 
 
@@ -163,21 +190,10 @@ local config = {
      } }, 
 
     launch_menu = {
-        {
-            args = {"top"},
-        },
-        {
-            label = "PowerShell",
-            args = pwsh,
-        },
-        {
-            label = "pwsh-beta",
-            args = pwshbeta,
-        },
-        {
-            label = "Git Bash",
-            args = gitbash,
-        },
+        { args = {"top"}, },
+        { label = "PowerShell", args = pwsh, },
+        { label = "pwsh-beta", args = pwshbeta, },
+        { label = "Git Bash", args = gitbash, },
     },
     wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title = wezterm.truncate_right(utils.basename(tab.active_pane.foreground_process_name), max_width)
