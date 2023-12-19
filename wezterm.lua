@@ -18,6 +18,8 @@ if string.match(wezterm.target_triple, '.*windows.*') ~= nil then
   --- Make it look cool.
   if is_windows_11 then
     wezterm.log_info "We're running Windows 11!"
+  else
+    wezterm.log_info "We're running OLD Windows !!"
   end
 
   local pwsh = {"D:\\scoop\\apps\\pwsh\\current\\pwsh.exe"}
@@ -37,14 +39,18 @@ if string.match(wezterm.target_triple, '.*windows.*') ~= nil then
       { label = "Git Bash", args = gitbash, }, }
 
 elseif string.match(wezterm.target_triple, '.*apple.*') ~= nil then
+  wezterm.log_info "We're running Apple OS !!"
+
   -- Configs for OSX only
   -- font_dirs    = { '$HOME/.dotfiles/.fonts' }
   config.font = wezterm.font_with_fallback {
   { family = 'Firge35Nerd Console' },
   { family = 'HackGen35Nerd Console' },
   { family = 'Monaco', } }
+  config.native_macos_fullscreen_mode = true
 
 elseif string.match(wezterm.target_triple, '.*linux.*') ~= nil then
+  wezterm.log_info "We're running Linux !!"
   -- if wezterm.target_triple == 'x86_65-unknown-linux-gnu' then
   -- Configs for Linux only
   -- font_dirs    = { '$HOME/.dotfiles/.fonts' }
@@ -54,6 +60,7 @@ elseif string.match(wezterm.target_triple, '.*linux.*') ~= nil then
   { family = 'Monaco', } }
 
 else
+  wezterm.log_info "We're running Unknown OS ... !!"
   config.font = wezterm.font_with_fallback {
   { family = 'Firge35Nerd Console' },
   { family = 'HackGen35Nerd Console' },
@@ -110,7 +117,6 @@ config.inactive_pane_hsb = {
      }
     
 -- Window
-config.native_macos_fullscreen_mode = true
 config.adjust_window_size_when_changing_font_size = true
 config.window_background_opacity = 1
 config.window_padding = {
@@ -177,6 +183,9 @@ config.keys = {
     -- Split
     { key = '-', mods = 'LEADER', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' } }, 
     { key = '\\', mods = 'LEADER', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }}, 
+
+    -- CTRL-SHIFT-l activates the debug overlay
+    { key = 'L', mods = 'CTRL', action = wezterm.action.ShowDebugOverlay },
     }
 
 config.mouse_bindings = {  -- Paste on right-click
@@ -222,5 +231,6 @@ config.mouse_bindings = {  -- Paste on right-click
 if haswork then
   work.apply_to_config(config)
 end
+
 return config
 
