@@ -1,8 +1,16 @@
--- 20230321 from https://github.com/ivaquero/oxidizer/blob/master/defaults/wezterm.lua
--- 
+-- Pull in the wezterm API
 local wezterm = require 'wezterm'
+
+-- This table will hold the configuration.
 local config = {}
+
 local haswork,work = pcall(require,"work")
+
+-- In newer versions of wezterm, use the config_builder which will
+-- help provide clearer error messages
+if wezterm.config_builder then
+  config = wezterm.config_builder()
+end
 
 -- x86_64-pc-windows-msvc - Windows
 -- x86_64-apple-darwin - macOS (Intel)
@@ -44,10 +52,9 @@ elseif string.match(wezterm.target_triple, '.*apple.*') ~= nil then
   -- Configs for OSX only
   -- font_dirs    = { '$HOME/.dotfiles/.fonts' }
   config.font = wezterm.font_with_fallback {
+  { family = 'Monaco' },
   { family = 'Firge35Nerd Console' },
-  { family = 'HackGen35Nerd Console' },
-  { family = 'Monaco', } }
-  config.native_macos_fullscreen_mode = true
+  { family = 'HackGen35Nerd Console' },}
 
 elseif string.match(wezterm.target_triple, '.*linux.*') ~= nil then
   wezterm.log_info "We're running Linux !!"
@@ -231,6 +238,5 @@ config.mouse_bindings = {  -- Paste on right-click
 if haswork then
   work.apply_to_config(config)
 end
-
 return config
 

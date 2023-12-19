@@ -1,0 +1,1 @@
+My Wezterm lua setting.
