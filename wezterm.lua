@@ -28,6 +28,7 @@ if string.match(wezterm.target_triple, '.*windows.*') ~= nil then
     wezterm.log_info "We're running Windows 11!"
   end
 
+  -- Just for my windows setting
   local pwsh = {"D:\\scoop\\apps\\pwsh\\current\\pwsh.exe"}
   local pwshbeta = {"D:\\scoop\\apps\\pwsh-beta\\current\\pwsh.exe"}
   local gitbash = {"D:\\scoop\\apps\\git\\current\\bin\\bash.exe", "-i", "-l"}
@@ -48,6 +49,7 @@ elseif string.match(wezterm.target_triple, '.*apple.*') ~= nil then
   -- Configs for OSX only
   -- font_dirs    = { '$HOME/.dotfiles/.fonts' }
   config.font = wezterm.font_with_fallback {
+  { family = 'UDEV Gothic 35NF' },
   { family = 'Monaco' },
   { family = 'Firge35Nerd Console' },
   { family = 'HackGen35Nerd Console' },}
