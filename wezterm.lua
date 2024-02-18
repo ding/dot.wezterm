@@ -36,6 +36,7 @@ if string.match(wezterm.target_triple, '.*windows.*') ~= nil then
   local default_prog = {'wsl.exe', '~', '-d', 'Ubuntu-20.04'}
   -- local default_font = "Firge35Nerd Console" -- HackGen35Nerd Console, Firge35Nerd Console
   config.font = wezterm.font_with_fallback {
+  { family = 'Moralerspace Krypton' },
   { family = 'Firge35Nerd Console' },
   { family = 'HackGen35Nerd Console' },
   { family = 'Hack Nerd Font', } }
@@ -114,8 +115,9 @@ config.enable_scroll_bar = true
 
 -- window_background_image = "/path/to/wallpaper.jpg",
     
-config.color_scheme = "Catppuccin Mocha" -- or Macchiato, Frappe, Latte, "Ollie", -- Batman, OneHalfDark
-config.font_size = 12.0
+-- config.color_scheme = "Catppuccin Mocha" -- or Macchiato, Frappe, Latte, "Ollie", -- Batman, OneHalfDark
+config.color_scheme = "Frappe" -- or Macchiato, Frappe, Latte, "Ollie", -- Batman, OneHalfDark
+config.font_size = 11.0
 config.use_ime = true
 config.inactive_pane_hsb = {
         hue = 1.0,
